@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity"
+    android:weightSum="100"
+    android:background="@color/indigo">
+
+    <Button
+        android:id="@+id/btn_"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="46"
+        android:layout_margin="13dp"
+        android:background="@drawable/btn_border_main"
+        android:text="보행&#10;내비게이션"
+        android:textColor="@color/yellow"
+        android:textSize="78sp" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="18"
+        android:layout_margin="13dp"
+        android:background="@drawable/btn_border_main"
+        android:text="긴급 전화 연결"
+        android:textSize="55sp"
+        android:textColor="@color/yellow"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="18"
+        android:layout_margin="13dp"
+        android:background="@drawable/btn_border_main"
+        android:text="설정"
+        android:textSize="55sp"
+        android:textColor="@color/yellow"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="18"
+        android:layout_margin="13dp"
+        android:background="@drawable/btn_border_main"
+        android:text="도움말"
+        android:textSize="55sp"
+        android:textColor="@color/yellow"/>
+
+</LinearLayout>
