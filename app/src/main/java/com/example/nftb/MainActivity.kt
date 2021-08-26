@@ -1,25 +1,22 @@
 package com.example.nftb
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.nftb.databinding.ActivityMainBinding
+import android.widget.Button
 
 
 class MainActivity : AppCompatActivity() {
-
-    private var mBinding: ActivityMainBinding? = null
-    private val binding get() = mBinding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        mBinding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-    }
+        val btn_m1 = findViewById<Button>(R.id.btn_main_1)
 
-    override fun onDestroy() {
-        mBinding = null
-        super.onDestroy()
+        btn_m1.setOnClickListener {
+            val intent = Intent(this, Navigation_1::class.java)
+            startActivity(intent) //보행 내비게이션 버튼 누를 시 Navigation_1로 이동
+        }
     }
 }

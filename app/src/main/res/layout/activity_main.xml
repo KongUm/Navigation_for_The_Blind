@@ -7,15 +7,15 @@
     android:orientation="vertical"
     tools:context=".MainActivity"
     android:weightSum="100"
-    android:background="@color/indigo">
+    android:background="@color/black">
 
     <Button
-        android:id="@+id/btn_"
+        android:id="@+id/btn_main_1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="46"
         android:layout_margin="13dp"
-        android:background="@drawable/btn_border_main"
+        android:background="@drawable/btn_border"
         android:text="보행&#10;내비게이션"
         android:textColor="@color/yellow"
         android:textSize="78sp" />
@@ -25,7 +25,7 @@
         android:layout_height="0dp"
         android:layout_weight="18"
         android:layout_margin="13dp"
-        android:background="@drawable/btn_border_main"
+        android:background="@drawable/btn_border"
         android:text="긴급 전화 연결"
         android:textSize="55sp"
         android:textColor="@color/yellow"/>
@@ -35,7 +35,7 @@
         android:layout_height="0dp"
         android:layout_weight="18"
         android:layout_margin="13dp"
-        android:background="@drawable/btn_border_main"
+        android:background="@drawable/btn_border"
         android:text="설정"
         android:textSize="55sp"
         android:textColor="@color/yellow"/>
@@ -45,7 +45,7 @@
         android:layout_height="0dp"
         android:layout_weight="18"
         android:layout_margin="13dp"
-        android:background="@drawable/btn_border_main"
+        android:background="@drawable/btn_border"
         android:text="도움말"
         android:textSize="55sp"
         android:textColor="@color/yellow"/>

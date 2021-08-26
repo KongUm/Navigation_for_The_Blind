@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Navigation_1"
+    android:orientation="vertical"
+    android:weightSum="100"
+    android:background="@color/black">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="18"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/tv_border"
+        android:text="검색어 :"
+        android:textSize="20sp"
+        android:textColor="@color/orange"
+        android:gravity="center"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="18"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/btn_border"
+        android:text="이름 : XXXXX 거리: 0.0km&#10;주소: XXXXXXXXXXXXXXXXXX"
+        android:textSize="20sp"
+        android:textColor="@color/yellow"
+        android:gravity="center"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="18"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/btn_border"
+        android:text="이름 : XXXXX 거리: 0.0km&#10;주소: XXXXXXXXXXXXXXXXXX"
+        android:textSize="20sp"
+        android:textColor="@color/yellow"
+        android:gravity="center"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="18"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/btn_border"
+        android:text="이름 : XXXXX 거리: 0.0km&#10;주소: XXXXXXXXXXXXXXXXXX"
+        android:textSize="20sp"
+        android:textColor="@color/yellow"
+        android:gravity="center"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="18"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/btn_border"
+        android:text="이름 : XXXXX 거리: 0.0km&#10;주소: XXXXXXXXXXXXXXXXXX"
+        android:textSize="20sp"
+        android:textColor="@color/yellow"
+        android:gravity="center"/>
+
+
+
+</LinearLayout>

@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NFTB">
         <activity
+            android:name=".Navigation_2"
+            android:exported="true" />
+        <activity
             android:name=".Navigation_1"
             android:exported="true" />
         <activity
