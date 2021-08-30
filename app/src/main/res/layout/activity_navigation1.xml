@@ -39,29 +39,4 @@
         android:id="@+id/tv_test"
         android:textColor="@color/yellow"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/text"
-        android:textColor="@color/yellow"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/text2"
-        android:textColor="@color/yellow"/>
-
-    <Button
-        android:id="@+id/geobutton"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="15"
-        android:layout_marginHorizontal="15dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/btn_border"
-        android:text="지오"
-        android:textSize="30sp"
-        android:textColor="@color/yellow"/>
-
-
 </LinearLayout>

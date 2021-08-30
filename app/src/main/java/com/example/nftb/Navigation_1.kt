@@ -13,17 +13,12 @@ import retrofit2.Response
 import android.speech.RecognitionListener
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
-import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.example.nftb.databinding.ActivityMainBinding
 import com.example.nftb.databinding.ActivityNavigation1Binding
 
 var address : String? = null
-
-
 
 class Navigation_1 : AppCompatActivity() {
 
@@ -37,23 +32,22 @@ class Navigation_1 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        binding.geobutton.setOnClickListener {
+
             val data = Coordinate("37.514455", "127.054420")
             api.post_coord(data).enqueue(object : Callback<PostResult_2> {
                 override fun onResponse(call: Call<PostResult_2>, response: Response<PostResult_2>) {
-                    android.util.Log.d("log", response.toString())
-                    android.util.Log.d("log", response.body().toString())
+                    Log.d("log", response.toString())
+                    Log.d("log", response.body().toString())
                     if (!response.body().toString().isEmpty())
-                        binding.text2.setText(response.toString())
-                    binding.text.setText(response.body().toString())
+                    binding.tvCurrloca.setText("현재 위치 : ${response.body().toString()}")
                 }
                 override fun onFailure(call: Call<PostResult_2>, t: Throwable) {
-                    binding.text2.setText(t.message.toString())
+                    binding.tvCurrloca.setText("주소 변환에 실패하였습니다.")
                     Log.d("log", t.message.toString())
                     Log.d("log", "fail")
                 }
             })
-        }
+
 
 
         requestPermission()
@@ -64,13 +58,12 @@ class Navigation_1 : AppCompatActivity() {
 
         setListener()
 
-        val btn_stt_start : Button = findViewById(R.id.btn_sttstart)
-
-        btn_stt_start.setOnClickListener {
+        binding.btnSttstart.setOnClickListener {
             speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this)
             speechRecognizer.setRecognitionListener(recognitionListener)
             speechRecognizer.startListening(intent)
         }
+
     }
 
 
@@ -143,10 +136,7 @@ class Navigation_1 : AppCompatActivity() {
                 for (i in 0 until matches.size) {
                     address = matches[i]
                 }
-
-                val tvtest = findViewById<TextView>(R.id.tv_test)
-                tvtest.setText("$address")
-
+                binding.tvTest.setText("좌표: $lat,$long, $address")
             }
 
             override fun onPartialResults(partialResults: Bundle?) {
