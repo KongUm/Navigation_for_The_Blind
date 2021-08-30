@@ -6,6 +6,10 @@ import android.content.pm.PackageManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import android.speech.RecognitionListener
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
@@ -14,6 +18,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.example.nftb.databinding.ActivityMainBinding
+import com.example.nftb.databinding.ActivityNavigation1Binding
 
 var address : String? = null
 
@@ -21,17 +27,33 @@ var address : String? = null
 
 class Navigation_1 : AppCompatActivity() {
 
+    val binding by lazy { ActivityNavigation1Binding.inflate(layoutInflater) }
+    val api = APIS.create()
+
     private lateinit var speechRecognizer: SpeechRecognizer
     private lateinit var recognitionListener: RecognitionListener
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_navigation1)
+        setContentView(binding.root)
 
-        val tv_current_loca = findViewById<TextView>(R.id.tv_currloca)
-        tv_current_loca.setText("$lat, $long")
+        binding.geobutton.setOnClickListener {
+            val data = Coordinate("37.514455", "127.054420")
+            api.post_coord(data).enqueue(object : Callback<PostResult_2> {
+                override fun onResponse(call: Call<PostResult_2>, response: Response<PostResult_2>) {
+                    android.util.Log.d("log", response.toString())
+                    android.util.Log.d("log", response.body().toString())
+                    if (!response.body().toString().isEmpty())
+                        binding.text2.setText(response.toString())
+                    binding.text.setText(response.body().toString())
+                }
+                override fun onFailure(call: Call<PostResult_2>, t: Throwable) {
+                    binding.text2.setText(t.message.toString())
+                    Log.d("log", t.message.toString())
+                    Log.d("log", "fail")
+                }
+            })
+        }
 
 
         requestPermission()
@@ -49,8 +71,6 @@ class Navigation_1 : AppCompatActivity() {
             speechRecognizer.setRecognitionListener(recognitionListener)
             speechRecognizer.startListening(intent)
         }
-
-
     }
 
 
@@ -124,6 +144,9 @@ class Navigation_1 : AppCompatActivity() {
                     address = matches[i]
                 }
 
+                val tvtest = findViewById<TextView>(R.id.tv_test)
+                tvtest.setText("$address")
+
             }
 
             override fun onPartialResults(partialResults: Bundle?) {
@@ -138,3 +161,5 @@ class Navigation_1 : AppCompatActivity() {
     }
 
 }
+
+
