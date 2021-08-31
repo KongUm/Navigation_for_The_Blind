@@ -17,8 +17,8 @@ import androidx.core.content.ContextCompat
 
 import java.util.*
 
-var lat = 0.0
-var long = 0.0
+var start_lat = 0.0
+var start_long = 0.0
 
 
 class MainActivity : AppCompatActivity() {
@@ -42,14 +42,15 @@ class MainActivity : AppCompatActivity() {
 
         btn_m1.setOnClickListener {
             gpsTracker = GpsTracker(this@MainActivity)
-            val latitude = gpsTracker!!.getLatitude()
-            val longitude = gpsTracker!!.getLongitude()
+            val start_latitude = gpsTracker!!.getLatitude()
+            val start_longitude = gpsTracker!!.getLongitude()
 
-            lat = latitude
-            long = longitude
+            start_lat = start_latitude
+            start_long = start_longitude
 
             val intent = Intent(this, Navigation_1::class.java)
             startActivity(intent) //보행 내비게이션 버튼 누를 시 Navigation_1로 이동
+            finish()
         }
     }
 

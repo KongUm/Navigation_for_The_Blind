@@ -18,7 +18,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.nftb.databinding.ActivityNavigation1Binding
 
-var address : String? = null
+var start_address : String? = null
 
 class Navigation_1 : AppCompatActivity() {
 
@@ -33,7 +33,7 @@ class Navigation_1 : AppCompatActivity() {
         setContentView(binding.root)
 
 
-            val data = Coordinate("37.514455", "127.054420")
+            val data = Coordinate("$start_lat", "$start_long")
             api.post_coord(data).enqueue(object : Callback<PostResult_2> {
                 override fun onResponse(call: Call<PostResult_2>, response: Response<PostResult_2>) {
                     Log.d("log", response.toString())
@@ -47,8 +47,6 @@ class Navigation_1 : AppCompatActivity() {
                     Log.d("log", "fail")
                 }
             })
-
-
 
         requestPermission()
 
@@ -65,8 +63,6 @@ class Navigation_1 : AppCompatActivity() {
         }
 
     }
-
-
     private fun requestPermission() {
         if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(this,
                 Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
@@ -77,7 +73,6 @@ class Navigation_1 : AppCompatActivity() {
                 arrayOf(Manifest.permission.RECORD_AUDIO), 0)
         }
     }
-
 
     private fun setListener() {
         recognitionListener = object: RecognitionListener {
@@ -134,9 +129,10 @@ class Navigation_1 : AppCompatActivity() {
                 val matches: ArrayList<String> = results?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION) as ArrayList<String>
 
                 for (i in 0 until matches.size) {
-                    address = matches[i]
+                    start_address = matches[i]
                 }
-                binding.tvTest.setText("좌표: $lat,$long, $address")
+                binding.tvTest.setText("좌표: $start_lat,$start_long, $start_address")
+                switch_Act2()
             }
 
             override fun onPartialResults(partialResults: Bundle?) {
@@ -146,10 +142,13 @@ class Navigation_1 : AppCompatActivity() {
             override fun onEvent(eventType: Int, params: Bundle?) {
 
             }
-
         }
+    } // Navigation_2 액티비티로 이동 및 Navigation_1 액티비티를 종료 시키는 함수
+    fun switch_Act2() {
+        val intent_2 = Intent(this, Navigation_2::class.java)
+        startActivity(intent_2)
+        finish()
     }
-
 }
 
 

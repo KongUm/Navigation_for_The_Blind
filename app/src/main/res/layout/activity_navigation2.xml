@@ -13,14 +13,14 @@
         android:id="@+id/tv_address"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="18"
         android:layout_marginHorizontal="15dp"
         android:layout_marginTop="20dp"
+        android:layout_weight="18"
         android:background="@drawable/tv_border"
+        android:gravity="center"
         android:text="검색어 :"
-        android:textSize="20sp"
         android:textColor="@color/orange"
-        android:gravity="center"/>
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/btn_dest_house"
