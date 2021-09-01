@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,14 +12,14 @@
         android:id="@+id/tv_address"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="18"
         android:layout_marginHorizontal="15dp"
         android:layout_marginTop="20dp"
+        android:layout_weight="18"
         android:background="@drawable/tv_border"
+        android:gravity="center"
         android:text="검색어 :"
-        android:textSize="20sp"
         android:textColor="@color/orange"
-        android:gravity="center"/>
+        android:textSize="25sp" />
 
     <Button
         android:layout_width="match_parent"

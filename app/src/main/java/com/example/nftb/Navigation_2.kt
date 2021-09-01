@@ -14,9 +14,12 @@ class Navigation_2 : AppCompatActivity() {
 
         val Dest_list = mutableListOf<String>()
 
+        val Tvaddress = findViewById<TextView>(R.id.tv_address)
+        Tvaddress.setText("검색어: $start_address")
+
         for (i in Dest_name.indices) {
             if(Dest_name[i].trimIndent() == start_address || Dest_address[i].trimIndent() == start_address){
-                Dest_list.add(i, "지명: ${Dest_name[i]}\n" +
+                Dest_list.add("지명: ${Dest_name[i]}\n" +
                         "주소: ${Dest_address[i]}")
             }else{}
         }

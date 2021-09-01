@@ -13,6 +13,7 @@ import retrofit2.Response
 import android.speech.RecognitionListener
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -131,16 +132,14 @@ class Navigation_1 : AppCompatActivity() {
                 for (i in 0 until matches.size) {
                     start_address = matches[i].trimIndent()
                 }
-                switch_Act2()
-                /*for (i in Dest_name.indices) {
-                    if(Dest_name[i].trimIndent() == start_address && Dest_address[i].trimIndent() == start_address){
-                        start_address = null
-                        Toast.makeText(applicationContext, "검색결과가 없습니다", Toast.LENGTH_SHORT)
-                    }
-                    else{binding.tvTest.setText("좌표: $start_lat,$start_long, $start_address")
+
+                for (i in Dest_name.indices) {
+                    if(Dest_name[i].trimIndent() == start_address || Dest_address[i].trimIndent() == start_address){
                         switch_Act2()
                     }
-                }*/
+                }
+                val tvtest = findViewById<TextView>(R.id.tv_test)
+                tvtest.setText("$start_address\n$start_lat, $start_long")
             }
 
             override fun onPartialResults(partialResults: Bundle?) {
