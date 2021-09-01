@@ -22,18 +22,12 @@
         android:textColor="@color/orange"
         android:textSize="20sp" />
 
-    <Button
-        android:id="@+id/btn_dest_house"
+    <ListView
+        android:id="@+id/lv_search"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="18"
-        android:layout_marginHorizontal="15dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/btn_border"
-        android:text="이름 : 도곡중학교&#10;주소: 서울 강남구 언주로57길 31"
-        android:textSize="20sp"
-        android:textColor="@color/yellow"
-        android:gravity="center"/>
+        android:layout_weight="82"
+        android:layout_marginTop="5dp"/>
 
 
 </LinearLayout>

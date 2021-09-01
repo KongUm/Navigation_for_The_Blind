@@ -33,13 +33,13 @@ class Navigation_1 : AppCompatActivity() {
         setContentView(binding.root)
 
 
-            val data = Coordinate("$start_lat", "$start_long")
+            val data = Coordinate("$start_long", "$start_lat")
             api.post_coord(data).enqueue(object : Callback<PostResult_2> {
                 override fun onResponse(call: Call<PostResult_2>, response: Response<PostResult_2>) {
                     Log.d("log", response.toString())
                     Log.d("log", response.body().toString())
                     if (!response.body().toString().isEmpty())
-                    binding.tvCurrloca.setText("현재 위치 : ${response.body().toString()}")
+                    binding.tvCurrloca.setText("현재 위치 : ${response.body()!!.name.toString()}")
                 }
                 override fun onFailure(call: Call<PostResult_2>, t: Throwable) {
                     binding.tvCurrloca.setText("주소 변환에 실패하였습니다.")
@@ -129,10 +129,18 @@ class Navigation_1 : AppCompatActivity() {
                 val matches: ArrayList<String> = results?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION) as ArrayList<String>
 
                 for (i in 0 until matches.size) {
-                    start_address = matches[i]
+                    start_address = matches[i].trimIndent()
                 }
-                binding.tvTest.setText("좌표: $start_lat,$start_long, $start_address")
                 switch_Act2()
+                /*for (i in Dest_name.indices) {
+                    if(Dest_name[i].trimIndent() == start_address && Dest_address[i].trimIndent() == start_address){
+                        start_address = null
+                        Toast.makeText(applicationContext, "검색결과가 없습니다", Toast.LENGTH_SHORT)
+                    }
+                    else{binding.tvTest.setText("좌표: $start_lat,$start_long, $start_address")
+                        switch_Act2()
+                    }
+                }*/
             }
 
             override fun onPartialResults(partialResults: Bundle?) {

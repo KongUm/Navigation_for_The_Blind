@@ -16,5 +16,5 @@ data class PostResult(
     var result:String? = null
 )
 data class PostResult_2(
-    var result:String? = null
+    var name :String? = null
 )
