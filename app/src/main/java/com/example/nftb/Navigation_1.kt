@@ -133,11 +133,11 @@ class Navigation_1 : AppCompatActivity() {
                 val matches: ArrayList<String> = results?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION) as ArrayList<String>
 
                 for (i in 0 until matches.size) {
-                    start_address = matches[i].trimIndent()
+                    start_address = matches[i]
                 }
 
                 for (i in Dest_name.indices) {
-                    if(Dest_name[i].trimIndent() == start_address || Dest_address[i].trimIndent() == start_address){
+                    if(Dest_name[i].replace(" ","") == start_address?.replace(" ","") || Dest_address[i].replace(" ","") == start_address?.replace(" ","")){
                         switch_Act2()
                     }
                 }

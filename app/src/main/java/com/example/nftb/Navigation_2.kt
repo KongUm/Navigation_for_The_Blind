@@ -22,7 +22,7 @@ class Navigation_2 : AppCompatActivity() {
         Tvaddress.setText("검색어: $start_address")
 
         for (i in Dest_name.indices) {
-            if(Dest_name[i].trimIndent() == start_address || Dest_address[i].trimIndent() == start_address){
+            if(Dest_name[i].replace(" ","") == start_address?.replace(" ","") || Dest_address[i].replace(" ","") == start_address?.replace(" ","")){
                 Dest_list.add("지명: ${Dest_name[i]}\n주소: ${Dest_address[i]}")
                 Dest_lat.add("${Dest_latitude[i]}")
                 Dest_long.add("${Dest_longitude[i]}")

@@ -22,6 +22,7 @@
         android:textSize="23sp" />
 
     <Button
+        android:id="@+id/btn_navistart"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="10"
@@ -37,5 +38,13 @@
         android:layout_height="wrap_content"
         android:id="@+id/tv_t"
         android:textColor="@color/yellow"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_t2"
+        android:textColor="@color/yellow"/>
+
+
 
 </LinearLayout>
