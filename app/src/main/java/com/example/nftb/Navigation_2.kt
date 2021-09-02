@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.*
 
+var Destination_info = ""
+
 
 class Navigation_2 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -13,26 +15,29 @@ class Navigation_2 : AppCompatActivity() {
         setContentView(R.layout.activity_navigation2)
 
         val Dest_list = mutableListOf<String>()
+        val Dest_lat = mutableListOf<String>()
+        val Dest_long = mutableListOf<String>()
 
         val Tvaddress = findViewById<TextView>(R.id.tv_address)
         Tvaddress.setText("검색어: $start_address")
 
         for (i in Dest_name.indices) {
             if(Dest_name[i].trimIndent() == start_address || Dest_address[i].trimIndent() == start_address){
-                Dest_list.add("지명: ${Dest_name[i]}\n" +
-                        "주소: ${Dest_address[i]}")
-            }else{}
+                Dest_list.add("지명: ${Dest_name[i]}\n주소: ${Dest_address[i]}")
+                Dest_lat.add("${Dest_latitude[i]}")
+                Dest_long.add("${Dest_longitude[i]}")
+            }
         }
-            val list_view = findViewById<ListView>(R.id.lv_search)
-            list_view.adapter = ArrayAdapter(this, R.layout.search_result, Dest_list)
+
+        val list_view = findViewById<ListView>(R.id.lv_search)
+        list_view.adapter = ArrayAdapter(this, R.layout.search_result, Dest_list)
 
         list_view.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
-            val data = PostModel("$start_long", "$start_lat", "${Dest_longitude[position]}", "${Dest_latitude[position]}")
-            Log.d("log", Dest_longitude[position])
-            Log.d("log", Dest_latitude[position])
+            val data = PostModel("$start_long", "$start_lat", "${Dest_long[position]}", "${Dest_lat[position]}")
+            Destination_info = "${Dest_list[position]}"
+            Log.d("log", Dest_lat[position])
+            Log.d("log", Dest_long[position])
 
-            val tvt = findViewById<TextView>(R.id.tv_t)
-            tvt.setText("${Dest_longitude[position]},${Dest_latitude[position]}")
 
             val intent = Intent(this, Navigation_3::class.java)
             startActivity(intent)

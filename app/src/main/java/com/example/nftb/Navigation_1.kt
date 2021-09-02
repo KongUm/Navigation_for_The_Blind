@@ -33,21 +33,24 @@ class Navigation_1 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        val data = Coordinate("$start_long", "$start_lat")
+        api.post_coord(data).enqueue(object : Callback<PostResult_2> {
 
-            val data = Coordinate("$start_long", "$start_lat")
-            api.post_coord(data).enqueue(object : Callback<PostResult_2> {
-                override fun onResponse(call: Call<PostResult_2>, response: Response<PostResult_2>) {
-                    Log.d("log", response.toString())
-                    Log.d("log", response.body().toString())
-                    if (!response.body().toString().isEmpty())
-                    binding.tvCurrloca.setText("현재 위치 : ${response.body()!!.name.toString()}")
-                }
-                override fun onFailure(call: Call<PostResult_2>, t: Throwable) {
-                    binding.tvCurrloca.setText("주소 변환에 실패하였습니다.")
-                    Log.d("log", t.message.toString())
-                    Log.d("log", "fail")
-                }
-            })
+            override fun onResponse(call: Call<PostResult_2>, response: Response<PostResult_2>) {
+                Log.d("log", response.toString())
+                Log.d("log", response.body().toString())
+
+                if(response.body()?.name == null){
+                    binding.tvCurrloca.setText("주소 변환에 실패하였습니다. null")
+                }else {binding.tvCurrloca.setText("현재 위치 : ${response.body()?.name.toString()}")}
+            }
+
+            override fun onFailure(call: Call<PostResult_2>, t: Throwable) {
+                binding.tvCurrloca.setText("주소 변환에 실패하였습니다.")
+                Log.d("log", t.message.toString())
+                Log.d("log", "fail")
+            }
+        })
 
         requestPermission()
 
@@ -154,7 +157,6 @@ class Navigation_1 : AppCompatActivity() {
     fun switch_Act2() {
         val intent_2 = Intent(this, Navigation_2::class.java)
         startActivity(intent_2)
-        finish()
     }
 }
 

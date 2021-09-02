@@ -9,7 +9,7 @@
     android:background="@color/black">
 
     <TextView
-        android:id="@+id/tv_address"
+        android:id="@+id/tv_dest"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginHorizontal="15dp"
@@ -17,9 +17,9 @@
         android:layout_weight="18"
         android:background="@drawable/tv_border"
         android:gravity="center"
-        android:text="검색어 :"
+        android:text="목적지"
         android:textColor="@color/orange"
-        android:textSize="25sp" />
+        android:textSize="23sp" />
 
     <Button
         android:layout_width="match_parent"

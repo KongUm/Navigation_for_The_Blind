@@ -50,7 +50,6 @@ class MainActivity : AppCompatActivity() {
 
             val intent = Intent(this, Navigation_1::class.java)
             startActivity(intent) //보행 내비게이션 버튼 누를 시 Navigation_1로 이동
-            finish()
         }
     }
 
