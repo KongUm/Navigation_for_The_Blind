@@ -25,13 +25,13 @@
         android:id="@+id/btn_sttstart"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="15"
         android:layout_marginHorizontal="15dp"
         android:layout_marginTop="20dp"
+        android:layout_weight="15"
         android:background="@drawable/btn_border"
         android:text="음성검색"
-        android:textSize="30sp"
-        android:textColor="@color/yellow"/>
+        android:textColor="@color/yellow"
+        android:textSize="30sp" />
 
     <TextView
         android:layout_width="match_parent"

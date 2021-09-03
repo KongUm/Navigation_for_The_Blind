@@ -33,6 +33,8 @@ val Dest_longitude = listOf(
     "127.032880",
     "127.052052",
     "127.065798"
+
+//TODO : Dest_long, Dest_lat 다시만들기
 )
 
 val Dest_latitude = listOf(
