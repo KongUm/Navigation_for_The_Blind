@@ -38,10 +38,13 @@ class MainActivity : AppCompatActivity() {
             checkRunTimePermission()
         }
 
+        gpsTracker = GpsTracker(this@MainActivity)
+
         val btn_m1 = findViewById<Button>(R.id.btn_main_1)
 
         btn_m1.setOnClickListener {
-            gpsTracker = GpsTracker(this@MainActivity)
+
+
             val start_latitude = gpsTracker!!.getLatitude()
             val start_longitude = gpsTracker!!.getLongitude()
 

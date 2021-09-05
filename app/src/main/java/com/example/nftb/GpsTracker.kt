@@ -15,7 +15,7 @@ import androidx.core.content.ContextCompat
 import java.lang.Exception
 
 
-class GpsTracker(private val mContext: Context) : Service(),
+class GpsTracker(private var mContext: Context) : Service(),
     LocationListener {
     var locat: Location? = null
     var latit = 0.0
@@ -25,8 +25,7 @@ class GpsTracker(private val mContext: Context) : Service(),
         try {
             locationManager = mContext.getSystemService(LOCATION_SERVICE) as LocationManager
             val isGPSEnabled = locationManager!!.isProviderEnabled(LocationManager.GPS_PROVIDER)
-            val isNetworkEnabled =
-                locationManager!!.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+            val isNetworkEnabled = locationManager!!.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
             if (!isGPSEnabled && !isNetworkEnabled) {
             } else {
                 val hasFineLocationPermission = ContextCompat.checkSelfPermission(
@@ -42,12 +41,7 @@ class GpsTracker(private val mContext: Context) : Service(),
                 ) {
                 } else return null
                 if (isNetworkEnabled) {
-                    locationManager!!.requestLocationUpdates(
-                        LocationManager.NETWORK_PROVIDER,
-                        MIN_TIME_BW_UPDATES,
-                        MIN_DISTANCE_CHANGE_FOR_UPDATES.toFloat(),
-                        this
-                    )
+                    locationManager!!.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES.toFloat(), this)
                     if (locationManager != null) {
                         locat =
                             locationManager!!.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
@@ -59,12 +53,7 @@ class GpsTracker(private val mContext: Context) : Service(),
                 }
                 if (isGPSEnabled) {
                     if (locat == null) {
-                        locationManager!!.requestLocationUpdates(
-                            LocationManager.GPS_PROVIDER,
-                            MIN_TIME_BW_UPDATES,
-                            MIN_DISTANCE_CHANGE_FOR_UPDATES.toFloat(),
-                            this
-                        )
+                        locationManager!!.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES.toFloat(), this)
                         if (locationManager != null) {
                             locat =
                                 locationManager!!.getLastKnownLocation(LocationManager.GPS_PROVIDER)
@@ -112,7 +101,7 @@ class GpsTracker(private val mContext: Context) : Service(),
 
     companion object {
         private const val MIN_DISTANCE_CHANGE_FOR_UPDATES: Long = 10
-        private const val MIN_TIME_BW_UPDATES = (1000 * 60 * 1).toLong()
+        private const val MIN_TIME_BW_UPDATES = (1000).toLong()
     }
 
     init {

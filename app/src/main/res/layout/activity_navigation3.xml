@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Navigation_3"
-    android:orientation="vertical"
     android:weightSum="100"
+    android:orientation="vertical"
     android:background="@color/black">
 
     <TextView
-        android:id="@+id/tv_dest"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginHorizontal="15dp"
@@ -17,7 +17,7 @@
         android:layout_weight="18"
         android:background="@drawable/tv_border"
         android:gravity="center"
-        android:text="목적지"
+        android:text="~~로 이동중"
         android:textColor="@color/orange"
         android:textSize="23sp" />
 
@@ -29,22 +29,53 @@
         android:layout_marginHorizontal="15dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/btn_border"
-        android:text="안내시작"
-        android:textSize="30sp"
+        android:text="test"
+        android:textSize="25sp"
+        android:textColor="@color/yellow"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/btn_border"
+        android:text="현재 위치?"
+        android:textSize="25sp"
+        android:textColor="@color/yellow"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/btn_border"
+        android:text="지정 연락처에 현재위치 발송"
+        android:textSize="25sp"
+        android:textColor="@color/yellow"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/btn_border"
+        android:text="안내 종료"
+        android:textSize="25sp"
         android:textColor="@color/yellow"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_t"
+        android:id="@+id/TV_Result"
         android:textColor="@color/yellow"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_t2"
+        android:id="@+id/TV_Result2"
         android:textColor="@color/yellow"/>
-
-
 
 </LinearLayout>

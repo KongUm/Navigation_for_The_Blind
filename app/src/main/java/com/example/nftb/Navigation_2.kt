@@ -7,6 +7,8 @@ import android.util.Log
 import android.widget.*
 
 var Destination_info = ""
+val Dest_lat = mutableListOf<String>()
+val Dest_long = mutableListOf<String>()
 
 
 class Navigation_2 : AppCompatActivity() {
@@ -15,8 +17,7 @@ class Navigation_2 : AppCompatActivity() {
         setContentView(R.layout.activity_navigation2)
 
         val Dest_list = mutableListOf<String>()
-        val Dest_lat = mutableListOf<String>()
-        val Dest_long = mutableListOf<String>()
+
 
         val Tvaddress = findViewById<TextView>(R.id.tv_address)
         Tvaddress.setText("검색어: $start_address")
@@ -33,7 +34,6 @@ class Navigation_2 : AppCompatActivity() {
         list_view.adapter = ArrayAdapter(this, R.layout.search_result, Dest_list)
 
         list_view.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
-            val data = PostModel("$start_long", "$start_lat", "${Dest_long[position]}", "${Dest_lat[position]}")
             Destination_info = "${Dest_list[position]}"
             Log.d("log", Dest_lat[position])
             Log.d("log", Dest_long[position])
