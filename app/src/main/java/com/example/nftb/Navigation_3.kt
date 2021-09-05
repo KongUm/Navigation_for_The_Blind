@@ -19,6 +19,7 @@ import com.example.nftb.databinding.ActivityNavigation1Binding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import kotlin.concurrent.timer
 
 var current_longitude = 0.0
 var current_latitude = 0.0
@@ -90,25 +91,28 @@ class Navigation_3 : AppCompatActivity() {
                 //lm.removeUpdates(gpsLocationListener)
             }
         }
-        val data = PostModel("$current_longitude", "$current_latitude", "$Dest_long", "$Dest_lat")
+        val data = PostModel("127.0371029", "37.0370978", "127.032830", "37.5028587")
+        //TODO : 수정필요 Dest_lat,long 배열
         Log.d("debug", current_latitude.toString())
+        timer(period = 10000){
+            api.post_users(data).enqueue(object : Callback<PostResult> {
+                override fun onResponse(call: Call<PostResult>, response: Response<PostResult>) {
+                    Log.d("log", response.toString())
+                    Log.d("log", response.body().toString())
 
-        api.post_users(data).enqueue(object : Callback<PostResult> {
-            override fun onResponse(call: Call<PostResult>, response: Response<PostResult>) {
-                Log.d("log", response.toString())
-                Log.d("log", response.body().toString())
+                    if(response.body()?.result == "errorr_SSiBal"){
+                        Log.d("SS", "sibal")
+                    }else {}
+                }
 
-                if(response.body()?.result == "errorr_SSiBal"){
-                    Log.d("SS", "sibal")
-                }else {}
-            }
+                override fun onFailure(call: Call<PostResult>, t: Throwable) {
+                    binding.tvCurrloca.setText("주소 변환에 실패하였습니다.")
+                    Log.d("log", t.message.toString())
+                    Log.d("log", "fail")
+                }
+            })
+        }
 
-            override fun onFailure(call: Call<PostResult>, t: Throwable) {
-                binding.tvCurrloca.setText("주소 변환에 실패하였습니다.")
-                Log.d("log", t.message.toString())
-                Log.d("log", "fail")
-            }
-        })
         lm.removeUpdates(gpsLocationListener)
     }
 
@@ -120,6 +124,9 @@ class Navigation_3 : AppCompatActivity() {
             val longitude: Double = location.longitude
             val latitude: Double = location.latitude
             val altitude: Double = location.altitude
+
+            current_longitude = longitude
+            current_latitude = latitude
 
             val TvResult2 = findViewById<TextView>(R.id.TV_Result2)
             TvResult2.setText("$latitude, $longitude 히히")

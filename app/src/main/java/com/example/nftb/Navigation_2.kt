@@ -35,8 +35,8 @@ class Navigation_2 : AppCompatActivity() {
 
         list_view.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
             Destination_info = "${Dest_list[position]}"
-            Log.d("log", Dest_lat[position])
-            Log.d("log", Dest_long[position])
+            Log.d("locat", Dest_lat[position])
+            Log.d("locat", Dest_long[position])
 
 
             val intent = Intent(this, Navigation_3::class.java)
