@@ -23,9 +23,10 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
 import kotlin.concurrent.timer
+import kotlin.math.log
 
-var current_longitude = 0.0
-var current_latitude = 0.0
+var current_longitude: Double = 0.0
+var current_latitude: Double = 0.0
 
 class Navigation_3 : AppCompatActivity() {
 
@@ -102,7 +103,8 @@ class Navigation_3 : AppCompatActivity() {
                 //lm.removeUpdates(gpsLocationListener)
             }
         }
-        val data = PostModel("$current_longitude", "$current_longitude", "127.058796", "37.5125020")
+        val data = PostModel("127.055904", "37.5169814", "127.058796", "37.5125020")
+        Log.d("Sendlog", "$current_longitude, $current_latitude")
         timer(period = 20000){
             api.post_users(data).enqueue(object : Callback<PostResult> {
                 override fun onResponse(call: Call<PostResult>, response: Response<PostResult>) {
@@ -112,7 +114,7 @@ class Navigation_3 : AppCompatActivity() {
                     var ResponseBodyResult :String? = null
 
                     if(response.body()?.result !== null){
-                        if(response.body()?.result.toString().replace("[0..3000]", "") !== ResponseBodyResult?.replace("[0..3000]", ""))
+                        if(response.body()?.result.toString().replace("//d".toRegex(), "") !== ResponseBodyResult?.replace("//d".toRegex(), ""))
                         {
                             ttsSpeak("${response.body()?.result}")
                         }else{}
@@ -137,18 +139,17 @@ class Navigation_3 : AppCompatActivity() {
     val gpsLocationListener = object : LocationListener {
         override fun onLocationChanged(location: Location) {
             val provider: String = location.provider
-            val longitude: Double = location.longitude
-            val latitude: Double = location.latitude
+            current_longitude = location.longitude
+            Log.d("loca", current_longitude.toString())
+            current_latitude = location.latitude
             val altitude: Double = location.altitude
 
-            current_longitude = longitude
-            current_latitude = latitude
 
             val TvResult2 = findViewById<TextView>(R.id.TV_Result2)
-            TvResult2.setText("$latitude, $longitude 히히")
+            TvResult2.setText("$current_latitude, $current_longitude 히히")
 
-            Log.d("debug", latitude.toString())
-            Log.d("debug", longitude.toString())
+            Log.d("debug", current_latitude.toString())
+            Log.d("debug", current_longitude.toString())
         }
 
         //아래 3개함수는 형식상 필수부분
