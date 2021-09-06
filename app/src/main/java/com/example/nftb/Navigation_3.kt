@@ -103,6 +103,7 @@ class Navigation_3 : AppCompatActivity() {
                 //lm.removeUpdates(gpsLocationListener)
             }
         }
+        var ResponseBodyResult :String? = ""
         val data = PostModel("127.055904", "37.5169814", "127.058796", "37.5125020")
         Log.d("Sendlog", "$current_longitude, $current_latitude")
         timer(period = 20000){
@@ -111,13 +112,18 @@ class Navigation_3 : AppCompatActivity() {
                     Log.d("log", response.toString())
                     Log.d("log", response.body().toString())
 
-                    var ResponseBodyResult :String? = null
 
-                    if(response.body()?.result !== null){
-                        if(response.body()?.result.toString().replace("//d".toRegex(), "") !== ResponseBodyResult?.replace("//d".toRegex(), ""))
+
+                    if(response.body()?.result != null){
+                        if(response.body()?.result.toString().replace(" ", "").replace("//d".toRegex(), "")
+                            != ResponseBodyResult?.replace(" ", "")?.replace("//d".toRegex(), ""))
                         {
+                            Log.d("Iflog", "1st ${response.body()?.result.toString().replace(" ", "").replace("//d".toRegex(), "")}")
+                            Log.d("Iflog", "2nd ${ResponseBodyResult?.replace(" ", "")?.replace("//d".toRegex(), "")}")
+                            ResponseBodyResult = response.body()?.result
+
                             ttsSpeak("${response.body()?.result}")
-                        }else{}
+                        }else{Log.d("IFlog", "성공")}
                     }else {
                         Log.d("ERROR", "ERROR - null!!")
                     }
