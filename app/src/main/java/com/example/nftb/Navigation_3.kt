@@ -9,6 +9,8 @@ import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Build
+import android.speech.tts.TextToSpeech
+import android.system.Os.rename
 import android.util.Log
 import android.widget.Button
 import android.widget.TextView
@@ -19,6 +21,7 @@ import com.example.nftb.databinding.ActivityNavigation1Binding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 import kotlin.concurrent.timer
 
 var current_longitude = 0.0
@@ -29,6 +32,9 @@ class Navigation_3 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_navigation3)
+        initTextToSpeech()
+        val TvMove = findViewById<TextView>(R.id.tv_move)
+        TvMove.setText("목적지 : $Destination_info")
 
         val binding by lazy { ActivityNavigation1Binding.inflate(layoutInflater) }
         val api = APIS.create()
@@ -39,6 +45,9 @@ class Navigation_3 : AppCompatActivity() {
         val TvResult = findViewById<TextView>(R.id.TV_Result)
 
         BtnNaviStart.setOnClickListener {
+
+            //TODO: MainActivity, Navigation 1,2 종료
+
             val isGPSEnabled: Boolean = lm.isProviderEnabled(LocationManager.GPS_PROVIDER)
             val isNetworkEnabled: Boolean = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
             //매니페스트에 권한이 추가되어 있다해도 여기서 다시 한번 확인해야함
@@ -61,6 +70,7 @@ class Navigation_3 : AppCompatActivity() {
                         var getLongitude = location?.longitude!!
                         var getLatitude = location.latitude
                         Toast.makeText(this, "현재위치를 불러옵니다.", Toast.LENGTH_SHORT).show()
+                        TvMove.setText("이동중: $Destination_info")
                         TvResult.setText("$getLatitude, $getLongitude")
                     }
                     isGPSEnabled -> {
@@ -69,6 +79,7 @@ class Navigation_3 : AppCompatActivity() {
                         var getLongitude = location?.longitude!!
                         var getLatitude = location.latitude
                         Toast.makeText(this, "현재위치를 불러옵니다.", Toast.LENGTH_SHORT).show()
+                        TvMove.setText("이동중: $Destination_info")
                         TvResult.setText("$getLatitude, $getLongitude")
                     }
                     else -> {
@@ -91,18 +102,23 @@ class Navigation_3 : AppCompatActivity() {
                 //lm.removeUpdates(gpsLocationListener)
             }
         }
-        val data = PostModel("127.0371029", "37.0370978", "127.032830", "37.5028587")
-        //TODO : 수정필요 Dest_lat,long 배열
-        Log.d("debug", current_latitude.toString())
-        timer(period = 10000){
+        val data = PostModel("$current_longitude", "$current_longitude", "127.058796", "37.5125020")
+        timer(period = 20000){
             api.post_users(data).enqueue(object : Callback<PostResult> {
                 override fun onResponse(call: Call<PostResult>, response: Response<PostResult>) {
                     Log.d("log", response.toString())
                     Log.d("log", response.body().toString())
 
-                    if(response.body()?.result == "errorr_SSiBal"){
-                        Log.d("SS", "sibal")
-                    }else {}
+                    var ResponseBodyResult :String? = null
+
+                    if(response.body()?.result !== null){
+                        if(response.body()?.result.toString().replace("[0..3000]", "") !== ResponseBodyResult?.replace("[0..3000]", ""))
+                        {
+                            ttsSpeak("${response.body()?.result}")
+                        }else{}
+                    }else {
+                        Log.d("ERROR", "ERROR - null!!")
+                    }
                 }
 
                 override fun onFailure(call: Call<PostResult>, t: Throwable) {
@@ -139,5 +155,27 @@ class Navigation_3 : AppCompatActivity() {
         override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
         override fun onProviderEnabled(provider: String) {}
         override fun onProviderDisabled(provider: String) {}
+    }
+
+    private var tts: TextToSpeech? = null
+
+    private fun initTextToSpeech() {
+        tts = TextToSpeech(this) {
+            if (it == TextToSpeech.SUCCESS) {
+                val result = tts?.setLanguage(Locale.KOREAN)
+                if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                    Toast.makeText(this, "Language not supported", Toast.LENGTH_SHORT)
+                        .show()
+                    return@TextToSpeech
+                }
+                Toast.makeText(this, "TTS setting successed", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "TTS init failed", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun ttsSpeak(strTTS: String) {
+        tts?.speak(strTTS, TextToSpeech.QUEUE_ADD, null, null)
     }
 }

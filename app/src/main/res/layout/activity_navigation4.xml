@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Navigation_3"
-    android:weightSum="100"
+    tools:context=".Navigation_4"
     android:orientation="vertical"
+    android:weightSum="100"
     android:background="@color/black">
 
     <TextView
-        android:id="@+id/tv_move"
+        android:id="@+id/tv_arrive"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginHorizontal="15dp"
@@ -18,45 +18,23 @@
         android:layout_weight="18"
         android:background="@drawable/tv_border"
         android:gravity="center"
-        android:text="~~로 이동중"
+        android:text="도착"
         android:textColor="@color/orange"
         android:textSize="23sp" />
 
     <Button
-        android:id="@+id/btn_navistart"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="10"
         android:layout_marginHorizontal="15dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/btn_border"
-        android:text="안내 시작"
+        android:text="지정 연락처에 도착 문자 발송"
         android:textSize="25sp"
         android:textColor="@color/yellow"/>
 
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="10"
-        android:layout_marginHorizontal="15dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/btn_border"
-        android:text="현재 위치 읽어주기"
-        android:textSize="25sp"
-        android:textColor="@color/yellow"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="10"
-        android:layout_marginHorizontal="15dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/btn_border"
-        android:text="지정 연락처에 현재위치 발송"
-        android:textSize="25sp"
-        android:textColor="@color/yellow"/>
-
-    <Button
+        android:id="@+id/btn_exit_2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="10"
@@ -66,17 +44,4 @@
         android:text="안내 종료"
         android:textSize="25sp"
         android:textColor="@color/yellow"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/TV_Result"
-        android:textColor="@color/yellow"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/TV_Result2"
-        android:textColor="@color/yellow"/>
-
 </LinearLayout>
