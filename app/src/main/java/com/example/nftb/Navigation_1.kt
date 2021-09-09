@@ -17,8 +17,10 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
 import com.example.nftb.databinding.ActivityNavigation1Binding
 
+private lateinit var speechRecognizer: SpeechRecognizer
 var start_address : String? = null
 
 class Navigation_1 : AppCompatActivity() {
@@ -26,8 +28,7 @@ class Navigation_1 : AppCompatActivity() {
     val binding by lazy { ActivityNavigation1Binding.inflate(layoutInflater) }
     val api = APIS.create()
 
-    private lateinit var speechRecognizer: SpeechRecognizer
-    private lateinit var recognitionListener: RecognitionListener
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,112 +53,28 @@ class Navigation_1 : AppCompatActivity() {
             }
         })
 
-        requestPermission()
+        requestPermission(this, this)
 
         val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
         intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, packageName)
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ko-KR")
 
-        setListener()
+        setListener(this, this)
 
         binding.btnSttstart.setOnClickListener {
             speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this)
             speechRecognizer.setRecognitionListener(recognitionListener)
             speechRecognizer.startListening(intent)
         }
-
-    }
-    private fun requestPermission() {
-        if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(this,
-                Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
-
-            // 거부해도 계속 노출됨. ("다시 묻지 않음" 체크 시 노출 안됨.)
-            // 허용은 한 번만 승인되면 그 다음부터 자동으로 허용됨.
-            ActivityCompat.requestPermissions(this,
-                arrayOf(Manifest.permission.RECORD_AUDIO), 0)
+        for (i in Dest_name.indices) {
+            if(Dest_name[i].replace(" ","") == start_address?.replace(" ","") || Dest_address[i].replace(" ","") == start_address?.replace(" ","")){
+            }
+            val intent = Intent(this, Navigation_2::class.java)
+            startActivity(intent)
         }
-    }
-
-    private fun setListener() {
-        recognitionListener = object: RecognitionListener {
-
-            override fun onReadyForSpeech(params: Bundle?) {
-                Toast.makeText(applicationContext, "음성인식을 시작합니다.", Toast.LENGTH_SHORT).show()
-            }
-
-            override fun onBeginningOfSpeech() {
-
-            }
-
-            override fun onRmsChanged(rmsdB: Float) {
-
-            }
-
-            override fun onBufferReceived(buffer: ByteArray?) {
-
-            }
-
-            override fun onEndOfSpeech() {
-
-            }
-
-            override fun onError(error: Int) {
-                val message: String
-
-                when (error) {
-                    SpeechRecognizer.ERROR_AUDIO ->
-                        message = "오디오 에러"
-                    SpeechRecognizer.ERROR_CLIENT ->
-                        message = "클라이언트 에러"
-                    SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS ->
-                        message = "퍼미션 없음"
-                    SpeechRecognizer.ERROR_NETWORK ->
-                        message = "네트워크 에러"
-                    SpeechRecognizer.ERROR_NETWORK_TIMEOUT ->
-                        message = "네트워크 타임아웃"
-                    SpeechRecognizer.ERROR_NO_MATCH ->
-                        message = "찾을 수 없음"
-                    SpeechRecognizer.ERROR_RECOGNIZER_BUSY ->
-                        message = "RECOGNIZER가 바쁨"
-                    SpeechRecognizer.ERROR_SERVER ->
-                        message = "서버가 이상함"
-                    SpeechRecognizer.ERROR_SPEECH_TIMEOUT ->
-                        message = "말하는 시간초과"
-                    else ->
-                        message = "알 수 없는 오류"
-                }
-                Toast.makeText(applicationContext, "에러 발생 $message", Toast.LENGTH_SHORT).show()
-            }
-
-            override fun onResults(results: Bundle?) {
-                val matches: ArrayList<String> = results?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION) as ArrayList<String>
-
-                for (i in 0 until matches.size) {
-                    start_address = matches[i]
-                }
-
-                for (i in Dest_name.indices) {
-                    if(Dest_name[i].replace(" ","") == start_address?.replace(" ","") || Dest_address[i].replace(" ","") == start_address?.replace(" ","")){
-                        switch_Act2()
-                    }
-                }
-                val tvtest = findViewById<TextView>(R.id.tv_test)
-                tvtest.setText("$start_address\n$start_lat, $start_long")
-            }
-
-            override fun onPartialResults(partialResults: Bundle?) {
-
-            }
-
-            override fun onEvent(eventType: Int, params: Bundle?) {
-
-            }
-        }
-    } // Navigation_2 액티비티로 이동 및 Navigation_1 액티비티를 종료 시키는 함수
-    fun switch_Act2() {
-        val intent_2 = Intent(this, Navigation_2::class.java)
-        startActivity(intent_2)
     }
 }
+
+
 
 

@@ -9,8 +9,6 @@ import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Build
-import android.speech.tts.TextToSpeech
-import android.system.Os.rename
 import android.util.Log
 import android.widget.Button
 import android.widget.TextView
@@ -23,7 +21,6 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
 import kotlin.concurrent.timer
-import kotlin.math.log
 
 var current_longitude: Double = 0.0
 var current_latitude: Double = 0.0
@@ -33,7 +30,7 @@ class Navigation_3 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_navigation3)
-        initTextToSpeech()
+        initTextToSpeech(this)
         val TvMove = findViewById<TextView>(R.id.tv_move)
         TvMove.setText("목적지 : $Destination_info")
 
@@ -163,26 +160,5 @@ class Navigation_3 : AppCompatActivity() {
         override fun onProviderEnabled(provider: String) {}
         override fun onProviderDisabled(provider: String) {}
     }
-
-    private var tts: TextToSpeech? = null
-
-    private fun initTextToSpeech() {
-        tts = TextToSpeech(this) {
-            if (it == TextToSpeech.SUCCESS) {
-                val result = tts?.setLanguage(Locale.KOREAN)
-                if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                    Toast.makeText(this, "Language not supported", Toast.LENGTH_SHORT)
-                        .show()
-                    return@TextToSpeech
-                }
-                Toast.makeText(this, "TTS setting successed", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(this, "TTS init failed", Toast.LENGTH_SHORT).show()
-            }
-        }
     }
 
-    private fun ttsSpeak(strTTS: String) {
-        tts?.speak(strTTS, TextToSpeech.QUEUE_ADD, null, null)
-    }
-}

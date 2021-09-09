@@ -1,7 +1,9 @@
 package com.example.nftb
 
 import android.Manifest
+import android.app.Activity
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.LocationManager
@@ -209,4 +211,6 @@ class MainActivity : AppCompatActivity() {
         private const val GPS_ENABLE_REQUEST_CODE = 2001
         private const val PERMISSIONS_REQUEST_CODE = 100
     }
+
+
 }
