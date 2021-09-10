@@ -8,6 +8,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.speech.RecognitionListener
+import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
 import android.speech.tts.TextToSpeech
 import android.widget.TextView
@@ -59,7 +60,7 @@ fun requestPermission(context: Context, activity : Activity) {
     }
 }
 
-fun setListener(context: Context, activity: Activity) {
+fun setListener(context: Context) {
     recognitionListener = object: RecognitionListener {
 
         override fun onReadyForSpeech(params: Bundle?) {

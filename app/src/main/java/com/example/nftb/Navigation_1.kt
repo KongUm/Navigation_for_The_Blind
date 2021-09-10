@@ -34,7 +34,7 @@ class Navigation_1 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        val data = Coordinate("$start_long", "$start_lat")
+        val data = Coordinate("$start_longitude", "$start_latitude")
         api.post_coord(data).enqueue(object : Callback<PostResult_2> {
 
             override fun onResponse(call: Call<PostResult_2>, response: Response<PostResult_2>) {
@@ -59,18 +59,21 @@ class Navigation_1 : AppCompatActivity() {
         intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, packageName)
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ko-KR")
 
-        setListener(this, this)
-
         binding.btnSttstart.setOnClickListener {
             speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this)
             speechRecognizer.setRecognitionListener(recognitionListener)
             speechRecognizer.startListening(intent)
+            setListener(this)
+
+            Log.d("log", "버튼 클릭")
         }
-        for (i in Dest_name.indices) {
-            if(Dest_name[i].replace(" ","") == start_address?.replace(" ","") || Dest_address[i].replace(" ","") == start_address?.replace(" ","")){
+        if(start_address != null){
+            for (i in Dest_name.indices) {
+                if(Dest_name[i].replace(" ","") == start_address?.replace(" ","") || Dest_address[i].replace(" ","") == start_address?.replace(" ","")){
+                }
+                val intent = Intent(this, Navigation_2::class.java)
+                startActivity(intent)
             }
-            val intent = Intent(this, Navigation_2::class.java)
-            startActivity(intent)
         }
     }
 }

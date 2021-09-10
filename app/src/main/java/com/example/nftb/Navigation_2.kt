@@ -10,6 +10,9 @@ var Destination_info = ""
 val Dest_lat = mutableListOf<String>()
 val Dest_long = mutableListOf<String>()
 
+var Destination_lat = ""
+var Destination_long = ""
+
 
 class Navigation_2 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,9 +38,11 @@ class Navigation_2 : AppCompatActivity() {
 
         list_view.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
             Destination_info = "${Dest_list[position]}"
+            Destination_lat = "${Dest_lat[position]}"
+            Destination_long = "${Dest_long[position]}"
+
             Log.d("locat", Dest_lat[position])
             Log.d("locat", Dest_long[position])
-
 
             val intent = Intent(this, Navigation_3::class.java)
             startActivity(intent)

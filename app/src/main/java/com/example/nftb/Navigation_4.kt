@@ -21,7 +21,5 @@ class Navigation_4 : AppCompatActivity() {
 
             //TODO: Navigation 3,4 종료 = 리셋
         }
-
-
     }
 }
