@@ -30,34 +30,35 @@ class Navigation_3 : AppCompatActivity() {
 
         val data = PostModel(current_longitude, current_latitude, Destination_long, Destination_lat)
         Log.d("Sendlog", "$current_longitude, $current_latitude")
-        timer(period = 10000){
-            api.post_users(data).enqueue(object : Callback<PostResult> {
-                override fun onResponse(call: Call<PostResult>, response: Response<PostResult>) {
-                    Log.d("log", response.toString())
-                    Log.d("log", response.body().toString())
 
-                    if(response.body()?.result != null){
-                        if(response.body()?.result.toString().replace(" ", "").replace("//d".toRegex(), "")
-                            != ResponseBodyResult?.replace(" ", "")?.replace("//d".toRegex(), ""))
-                        {
-                            ResponseBodyResult = response.body()?.result
+        GpsTracker(this, this)
 
-                            ttsSpeak("${response.body()?.result}")
-                        }else{Log.d("Iflog", "성공")}
-                    }else {
-                        Log.d("ERROR", "ERROR - null!!")
+        BtnNaviStart.setOnClickListener{
+            timer(period = 10000){
+                api.post_users(data).enqueue(object : Callback<PostResult> {
+                    override fun onResponse(call: Call<PostResult>, response: Response<PostResult>) {
+                        Log.d("log", response.toString())
+                        Log.d("log", response.body().toString())
+
+                        if(response.body()?.result != null){
+                            if(response.body()?.result.toString().replace(" ", "").replace("//d".toRegex(), "")
+                                != ResponseBodyResult?.replace(" ", "")?.replace("//d".toRegex(), ""))
+                            {
+                                ResponseBodyResult = response.body()?.result
+                                ttsSpeak("${response.body()?.result}")
+                            }else{Log.d("Iflog", "성공")}
+                        }else {
+                            Log.d("ERROR", "ERROR - null!!")
+                        }
                     }
-                }
-
-                override fun onFailure(call: Call<PostResult>, t: Throwable) {
-                    binding.tvCurrloca.setText("주소 변환에 실패하였습니다.")
-                    Log.d("log", t.message.toString())
-                    Log.d("log", "fail")
-                }
-            })
+                    override fun onFailure(call: Call<PostResult>, t: Throwable) {
+                        binding.tvCurrloca.setText("주소 변환에 실패하였습니다.")
+                        Log.d("log", t.message.toString())
+                        Log.d("log", "fail")
+                    }
+                })
+            }
         }
     }
-
-
 }
 

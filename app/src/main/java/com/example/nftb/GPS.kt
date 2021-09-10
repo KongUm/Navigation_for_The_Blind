@@ -58,21 +58,10 @@ fun GpsTracker(context : Context, activity : Activity) {
             else -> {
             }
         }
-        lm.requestLocationUpdates(
-            LocationManager.GPS_PROVIDER,
-            500, //몇초
-            1F,   //몇미터
-            gpsLocationListener
-        )
-        lm.requestLocationUpdates(
-            LocationManager.NETWORK_PROVIDER,
-            500,
-            1F,
-            gpsLocationListener
-        )
+        lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 500, 1F, gpsLocationListener)
+        lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 500, 1F, gpsLocationListener)
 
-        //해제부분. 상황에 맞게 잘 구현하자
-        lm.removeUpdates(gpsLocationListener)
+    // lm.removeUpdates(gpsLocationListener)
     }
 }
 
@@ -85,8 +74,8 @@ val gpsLocationListener = object : LocationListener {
         current_longitude = location.longitude.toString()
         current_latitude = location.latitude.toString()
 
-        Log.d("debug", current_latitude.toString())
-        Log.d("debug", current_longitude.toString())
+        Log.d("debug", current_latitude)
+        Log.d("debug", current_longitude)
     }
 
     //아래 3개함수는 형식상 필수부분

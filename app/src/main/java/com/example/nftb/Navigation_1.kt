@@ -60,14 +60,15 @@ class Navigation_1 : AppCompatActivity() {
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ko-KR")
 
         binding.btnSttstart.setOnClickListener {
+            setListener(this)
             speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this)
             speechRecognizer.setRecognitionListener(recognitionListener)
             speechRecognizer.startListening(intent)
-            setListener(this)
-
             Log.d("log", "버튼 클릭")
         }
         if(start_address != null){
+            Toast.makeText(this, "버튼", Toast.LENGTH_SHORT)
+            Log.d("log", "젭ㄹ")
             for (i in Dest_name.indices) {
                 if(Dest_name[i].replace(" ","") == start_address?.replace(" ","") || Dest_address[i].replace(" ","") == start_address?.replace(" ","")){
                 }
@@ -75,6 +76,7 @@ class Navigation_1 : AppCompatActivity() {
                 startActivity(intent)
             }
         }
+
     }
 }
 
